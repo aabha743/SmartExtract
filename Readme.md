@@ -1,10 +1,17 @@
-SmartExtract
-SmartExtract is a Streamlit web application designed to extract questions and images from a PDF file, specifically tailored for educational content. The app processes the PDF to extract text and images, organizes the content into a structured JSON format, and provides a downloadable ZIP file containing the JSON and extracted images.
-Features
+# SmartExtract
 
-Upload a PDF file through a user-friendly web interface.
-Extract text (questions and options) and images from the PDF using pdfplumber.
-Organize content into a JSON file with the structure:[
+**SmartExtract** is a Streamlit web application designed to extract questions and images from a PDF file, specifically tailored for educational content such as Olympiad sample papers. It processes the PDF to extract text and images, organizes the content into a structured JSON format, and provides a downloadable ZIP file containing the JSON and extracted images.
+
+---
+
+## 🚀 Features
+
+- 📂 Upload a PDF file through a user-friendly web interface.
+- 📝 Extract text (questions and options) and images from the PDF using `pdfplumber`.
+- 📁 Organize content into a structured JSON format:
+
+```json
+[
     {
         "question": "Question text",
         "images": "path/to/question_image.png",
@@ -12,74 +19,114 @@ Organize content into a JSON file with the structure:[
     },
     ...
 ]
+```
 
+- 🖥️ Display the extracted JSON content in the app.
+- 📦 Download a ZIP file containing the `extracted_content.json` and all extracted images.
 
-Display the extracted JSON content in the app.
-Provide a downloadable ZIP file containing the JSON and all extracted images.
+---
 
-Prerequisites
+## ⚙️ Prerequisites
 
-Python 3.8 or higher
-Streamlit
-pdfplumber
-Pillow
+- Python 3.8 or higher
+- [Streamlit](https://streamlit.io/)
+- [pdfplumber](https://github.com/jsvine/pdfplumber)
+- [Pillow](https://python-pillow.org/)
 
-Installation
+---
 
-Clone the Repository (if applicable):
+## 🛠️ Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone <repository-url>
-cd MathExtract
+cd SmartExtract
+```
 
+### 2. Create a Virtual Environment (Recommended)
 
-Create a Virtual Environment (recommended):
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
+### 3. Install Dependencies
 
-Install Dependencies:
+```bash
 pip install streamlit pdfplumber pillow
+```
 
+---
 
+## ▶️ Running the Application
 
-Running the Application
+1. **Save the Streamlit script as `app.py`** in your project directory.
 
-Ensure the Script is Saved:
+2. **Launch the app:**
 
-Save the Streamlit app code as app.py in your project directory.
-
-
-Run the Streamlit App:
+```bash
 streamlit run app.py
+```
 
+This will start the Streamlit server and open the app in your default web browser at:  
+http://localhost:8501
 
-This command starts the Streamlit server and opens the app in your default web browser (typically at http://localhost:8501).
+---
 
+## 🧪 Using the App
 
-Using the App:
+- **Upload a PDF:** Use the file uploader to select a sample paper (e.g., `IMO Class 1 Maths Olympiad Sample Paper 1 for the year 2024-25.pdf`).
+- **View JSON Output:** The extracted content will be displayed in JSON format.
+- **Download ZIP:** Click the `Download ZIP (JSON + Images)` button to download the `extracted_content.json` and extracted images in a ZIP file.
 
-Upload a PDF: Use the file uploader to select a PDF file (e.g., "IMO Class 1 Maths Olympiad Sample Paper 1 for the year 2024-25.pdf").
-View JSON Output: The extracted content will be displayed as JSON in the app.
-Download ZIP: Click the "Download ZIP (JSON + Images)" button to download a ZIP file containing the extracted_content.json and all extracted images.
+---
 
+## 📁 Project Structure
 
+```
+SmartExtract/
+│
+├── app.py                        # Main Streamlit application
+├── extracted_output/
+│   └── extract_YYYYMMDD_HHMMSS/ # Timestamped output directory (JSON + images)
+├── temp/                         # Temporary PDF storage during processing
+```
 
-Project Structure
+---
 
-app.py: The main Streamlit application script.
-extracted_output/extract_YYYYMMDD_HHMMSS/: Directory where extracted images and JSON are saved (created dynamically with a timestamp).
-temp/: Temporary directory for storing the uploaded PDF during processing.
+## 📝 Notes
 
-Notes
+- **PDF Layout Assumption:** Designed for educational papers where each question may have:
+  - One main image (e.g., figure or diagram)
+  - Up to four option images
 
-PDF Structure: The app assumes each question may have one main image (e.g., a figure pattern) and up to four option images, based on typical Olympiad paper layouts. If your PDF has a different structure, you may need to adjust the image assignment logic in app.py.
-Error Handling: The app includes error handling for PDF processing and image extraction. Check the app interface for any error messages if issues arise.
-Cleanup: The temporary PDF file is automatically deleted after processing. The extracted output is saved in a timestamped directory to avoid conflicts.
+  If your PDF differs structurally, you may need to modify image parsing logic in `app.py`.
 
-Troubleshooting
+- **Error Handling:** The app includes basic error messages for corrupted PDFs or unexpected layouts.
 
-Module Not Found: Ensure all dependencies are installed using pip install streamlit pdfplumber pillow.
-PDF Processing Errors: Verify that the PDF is not corrupted and is accessible. Complex layouts may require switching to PyMuPDF for better extraction.
-Port Conflict: If http://localhost:8501 is unavailable, Streamlit will prompt you to use a different port (e.g., streamlit run app.py --server.port 8502).
+- **Temporary File Cleanup:** Uploaded PDFs are deleted after processing. Extracted content is stored in timestamped directories to prevent overwriting.
 
-License
-This project is licensed under the MIT License.
+---
+
+## ❗ Troubleshooting
+
+- **Module Not Found:** Ensure dependencies are installed:
+
+```bash
+pip install streamlit pdfplumber pillow
+```
+
+- **PDF Extraction Errors:** Use clean, text-based PDFs. For complex layouts, consider switching to [PyMuPDF](https://pymupdf.readthedocs.io/en/latest/) for better handling.
+
+- **Port Conflict:** If `localhost:8501` is busy, run:
+
+```bash
+streamlit run app.py --server.port 8502
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
